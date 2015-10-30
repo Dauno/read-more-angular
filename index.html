@@ -4,7 +4,6 @@
   <head>
     <meta charset="utf-8" />
     <title>AngularJS read more</title>
-    <script>document.write('<base href="' + document.location + '" />');</script>
     <script data-require="angular.js@1.4.x" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js" data-semver="1.4.7"></script>
     <script src="app.js"></script>
     <script src="main.controller.js"></script>
@@ -14,9 +13,9 @@
 
   <body ng-controller="MainController as vm">
     <h1>texto original</h1>
-    <p >{{vm.text}}!</p>
+    <p >{{vm.text}}</p>
     <h1>directiva</h1>
-    <read-more more-text="... leer más" less-text="... leer menos" limit="150" text="{{vm.text}}"></read-more>
+    <read-more more-text=" ... leer más" less-text=" ... leer menos" limit="150" text="{{vm.text}}"></read-more>
   </body>
 
 </html>
