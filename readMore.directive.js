@@ -26,9 +26,9 @@
 
 		return directive;
 
-		ControllerD.$inject = ['$compile', '$filter', '$element'];
+		ControllerD.$inject = ['$filter', '$element'];
 
-		function ControllerD($compile, $filter, $element) {
+		function ControllerD($filter, $element) {
 			var vm = this;
 			vm.collapsed = true;
 			vm.toggle = toggle;
