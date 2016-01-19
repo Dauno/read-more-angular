@@ -9,14 +9,20 @@
     <script src="app.js"></script>
     <script src="main.controller.js"></script>
     <script src="readMore.directive.js"></script>
-     
+
   </head>
 
-  <body ng-controller="MainController as vm">
-    <h1>texto original</h1>
-    <p >{{vm.text}}!</p>
-    <h1>directiva</h1>
-    <read-more more-text="... leer más" less-text="... leer menos" limit="150" text="{{vm.text}}"></read-more>
+  <body ng-controller="MainController as main">
+    <h1>texto</h1>
+    <p>{{main.text}}</p>
+    <h1>directiva texto</h1>
+    <read-more more-text="... leer más" less-text="... leer menos" limit="150" text="{{main.text}}"></read-more>
+
+    <h1>html</h1>
+    <p>{{main.textHtml}}</p>
+    <h1>directiva html</h1>
+    <read-more more-text="... leer más" less-text="... leer menos" limit="150" text="{{main.textHtml}}"></read-more>
+
   </body>
 
 </html>

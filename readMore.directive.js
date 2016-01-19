@@ -4,7 +4,7 @@
     .module('demo')
 	  .directive('readMore', readMore);
 
-	  function readMore($compile, $filter) {
+	  function readMore() {
 		var directive = {
 			restrict: 'AE',
 			scope: {
@@ -13,45 +13,44 @@
 				lessText:'@',
 				limit : '@',
 			},
-			link: linkFunc
+			template: [
+				'<span></span>',
+				'<a href="#" ng-click="ctrld.toggle()" >',
+					'&nbsp; {{ctrld.collapsed ? ctrld.moreText : ctrld.lessText }}',
+				'</a>'
+			].join(''),
+			controller: ControllerD,
+			controllerAs: 'ctrld',
+			bindToController: true
 		};
 
 		return directive;
 
-		function linkFunc(scope, el, attrs) {
-			scope.collapsed = true;
-			scope.toggle = toggle;
-			var limitText = '';
-			var originText = '';
-			var limit = '';
+		ControllerD.$inject = ['$compile', '$filter', '$element'];
+
+		function ControllerD($compile, $filter, $element) {
+			var vm = this;
+			vm.collapsed = true;
+			vm.toggle = toggle;
+
 
 			main();
 
 			function main() {
-				limit = scope.$eval(attrs.limit);
-				attrs.$observe('text', function(text) {
-					originText = text;
-					limitText = $filter('limitTo')(text, limit);
-					generate(limitText);
-				});
-			}
-
-			function generate(text) {
-				el.html(text);
-				if (originText.length > limit) {
-					var toggleButton = $compile('<a href="#" ng-click="toggle()" >&nbsp; {{collapsed ? moreText : lessText }}</a>')(scope);
-					el.append(toggleButton);
+				angular.element($element[0].querySelector('span')).html($filter('limitTo')(vm.text, vm.limit));
+				if (vm.text.length < vm.limit) {
+					angular.element($element[0].querySelector('a')).remove();
 				}
 			}
 
 			function toggle() {
-				if (scope.collapsed) {
-					generate(originText);
+				if (vm.collapsed) {
+					angular.element($element[0].querySelector('span')).html($filter('limitTo')(vm.text, vm.text.length));
 				}
 				else {
-					generate(limitText);
+					angular.element($element[0].querySelector('span')).html($filter('limitTo')(vm.text, vm.limit));
 				}
-				scope.collapsed = !scope.collapsed;
+				vm.collapsed = !vm.collapsed;
 			}
 		}
 	}
